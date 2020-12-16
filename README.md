@@ -6,66 +6,95 @@ All responses will have the form
 
 ```json 
 {
-	"data": "Mixed type holding the content of the responses",
-	"message": "Description of what happened"
+	"message": "Description of what happened",
+	"data": "Mixed type holding the content of the responses"
 }
 ```
 
-Subsequent response deffinitions will only details the expected value of the `data field`
+Subsequent response deffinitions will only detail the expected value of the `data field`
 
-### GET health of service
+### GET list of all services
 
 **Definition**
 
-`GET /health`
+`GET /devices`
 
 **Response**
 
 - `200 OK` on success
 
 ```json
-
-[
-	{
-		"hostname": "frontend",
-		"is-active": "active"
-
-	}
-]
+    {
+      "hostname": "backend",
+      "is-active": "disabled"
+    },
+    {
+      "hostname": "frontend",
+      "is-active": "active"
+    }
 ```
 
-### Sending Health Status
+### Get health info of one service
+
+**Definition**
+`GET /health/<service-name>`
+
+
+**Response**
+`200 OK` on success
+
+```json 
+{
+  "message": "Hostname exists in  DB",
+  "data": {
+    "hostname": "backend",
+    "is-active": "disabled"
+  }
+}
+
+```
+
+
+### Updating Health Status
 
 **Definitions**
 
- `POST /health`
+ `POST /device`
 
 **Arguements**
 
-- `"hostname": string` a unique hostname 
-- `"is-active": string` unique string to tune service for is active or not
+- `"hostname": "service-name"` a unique hostname 
+- `"is-active": "string"` unique string to tune service for is active or not
+
+**Example POST request**
+```bash 
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"hostname":"plex","is-active":"active"}' \
+  http://localhost:5000/devices
+```
 
 
-
-If a device with the given identifer already exists, the device will be overwrittne'
+- *If a device with the given identifer already exists, the device will be overwritten*
 
 **Response**
 
 - `201 Created` on success
 ```json
 
-[
-	{
-		"hostname": "frontend",
-		"is-active": "active"
+{
+    "message": "Database has stored hostname",
+    "data": {
+        "hostname": "plex",
+        "is-active": "active"
+    }
+}
 
-	}
-]
 ```
 
 ## Lookup device details 
 
-`GET /device/<hostname>`
+`GET /health/<service-name>`
 
 **Response**
 
@@ -83,6 +112,18 @@ If a device with the given identifer already exists, the device will be overwrit
 	}
 ]
 ```
+## Delete a device
+
+**Definition**
+
+`DELETE /health/<service-name>`
+
+**Response**
+
+`404 Not Found` if the device does not exist
+`204 No Content` on success
+
+
 
 
 
