@@ -41,7 +41,8 @@ def index():
         return markdown.markdown(content)
 
 
-# class and functions that define the methods (get/post/del)
+# class holds the functions  and functions  define the methods (get/post/del)
+# don't forget to initian the db function with `shelf = get_db()`
 
 class DeviceList(Resource):
     def get(self):
@@ -51,7 +52,7 @@ class DeviceList(Resource):
         devices = []
 
         for key in keys:
-            devices.append(shelf[key])
+            devices.append(shelf[key]) #looping over keys to put into device array 
 
         return {'message': 'Success', 'data': devices}, 200
 

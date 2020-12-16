@@ -1,4 +1,4 @@
-# Infrastructure status api
+# Infrastructure Registry Service
 
 ## Usage 
 
