@@ -27,3 +27,11 @@ curl --header "Content-Type: application/json" \
   --data "$(generate_post_data)" \
   http://localhost:5000/devices
 
+
+
+
+# TODO
+
+# Crontab every min:
+
+# `* * * * * /usr/local/bin/send-service-status.sh`
