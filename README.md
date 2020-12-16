@@ -1,4 +1,4 @@
-# Plex service Status
+# Infrastructure status api
 
 ## Usage 
 
