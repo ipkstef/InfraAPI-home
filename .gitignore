@@ -1,1 +1,7 @@
 *.db
+*.log
+health_registery/__pycache__/__init__.cpython-39.pyc
+__pycache__/
+*.py[cod]
+*.pyc
+__pycache__/

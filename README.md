@@ -24,14 +24,26 @@ Subsequent response deffinitions will only detail the expected value of the `dat
 - `200 OK` on success
 
 ```json
+{
+  "message": "Success",
+  "data": [
     {
-      "hostname": "backend",
-      "is-active": "disabled"
+      "hostname": "backendd",
+      "is-active": "disabled",
+      "uptime": "o days"
+    },
+    {
+      "hostname": "osboxes",
+      "is-active": "active",
+      "uptime": "up 4 hours, 54 minutes"
     },
     {
       "hostname": "frontend",
-      "is-active": "active"
+      "is-active": "disabled",
+      "uptime": "56 days"
     }
+  ]
+}
 ```
 
 ### Get health info of one service
@@ -41,17 +53,18 @@ Subsequent response deffinitions will only detail the expected value of the `dat
 
 
 **Response**
-`200 OK` on success
+- `200 OK` on success
+- `404 Not Found` if hostname doesn't exist 
 
 ```json 
 {
   "message": "Hostname exists in  DB",
   "data": {
-    "hostname": "backend",
-    "is-active": "disabled"
+    "hostname": "frontend",
+    "is-active": "disabled",
+    "uptime": "56 days"
   }
 }
-
 ```
 
 
@@ -81,37 +94,16 @@ curl --header "Content-Type: application/json" \
 
 - `201 Created` on success
 ```json
-
 {
-    "message": "Database has stored hostname",
+    "message": "Database has stored Service info",
     "data": {
-        "hostname": "plex",
-        "is-active": "active"
+        "hostname": "osboxes",
+        "is-active": "active",
+        "uptime": "up 4 hours, 54 minutes"
     }
 }
-
 ```
 
-## Lookup device details 
-
-`GET /health/<service-name>`
-
-**Response**
-
-- `404 Not Found` if hostname doesn't exist 
-
-- `200 OK` on success 
-
-```json
-
-[
-	{
-		"hostname": "frontend",
-		"is-active": "active"
-
-	}
-]
-```
 ## Delete a device
 
 **Definition**
@@ -120,8 +112,8 @@ curl --header "Content-Type: application/json" \
 
 **Response**
 
-`404 Not Found` if the device does not exist
-`204 No Content` on success
+- `404 Not Found` if the device does not exist
+- `204 No Content` on success
 
 
 
