@@ -1,7 +1,31 @@
 #! /bin/bash
 
+# seperate different OS into variables 
 
-# First, write a function that generates the post data of your script. 
+declare -A osInfo;
+osInfo[/etc/debian_version]="apt-get install -y"
+osInfo[/etc/alpine-release]="apk --update add"
+osInfo[/etc/centos-release]="yum install -y"
+osInfo[/etc/fedora-release]="dnf install -y"
+osInfo[/etc/arch-release]="pacman -Syu"
+osInfo[/etc/alpine-release]="apk add"
+
+# loop through variables and test if release version file exists 
+for f in ${!osInfo[@]}
+do
+    if [[ -f $f ]];then
+        package_manager=${osInfo[$f]}
+    fi
+done
+
+
+package="curl"
+if [ ! -e /usr/bin/curl ];then
+  ${package_manager} ${package}
+fi
+
+
+# function that generates the post data of your script. 
 #This saves you from all sort of headaches concerning shell quoting and makes it easier to read an maintain the script than feeding the post data on curl's invocation line as in your attempt
 
 generate_post_data()
@@ -17,8 +41,8 @@ EOF
 
 # pass variables
 
-hostname=$(hostname)
-active=$(systemctl is-active snap.docker.dockerd.service)
+hostname=$(cat /etc/hostname)
+active=$(docker ps --format '{{ .Names }} {{.Status}}' | tr '\n' ',')
 uptime=$(uptime -p)
 
 
