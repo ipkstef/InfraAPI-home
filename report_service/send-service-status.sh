@@ -42,11 +42,11 @@ EOF
 # pass variables
 
 hostname=$(cat /etc/hostname)
-active=$(docker ps --format '{{ .Names }} {{.Status}}' | tr '\n' ',')
+active=$(docker ps --format '{{ .Names }} {{.Status}}' | paste -s -d, -)
 uptime=$(uptime -p)
 
 
-curl --header "Content-Type: application/json" \
+/usr/bin/curl --header "Content-Type: application/json" \
   --request POST \
   --data "$(generate_post_data)" \
   http://localhost:5000/devices
