@@ -67,7 +67,7 @@ EOF
  # active variable is broken need ot fix docker absolute path
 
 hostname=$(cat /etc/hostname)
-active=$( docker ps --format '{{ .Names }} {{.Status}}' | paste -s -d, - )
+active=$(/snap/bin/docker  ps --format '{{ .Names }} {{.Status}}' | paste -s -d, - )
 uptime=$(uptime -p)
 date=$(date)
 
