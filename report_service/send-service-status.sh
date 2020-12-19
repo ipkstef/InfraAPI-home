@@ -40,7 +40,7 @@ fi
 echo `dirname "$0"`
 #function to generate ACCESS token
 generate_access_token() {
-  /usr/bin/curl -s --request POST   --url http://localhost:5000/login \
+  /usr/bin/curl -s --request POST   --url http://api.fornjot.xyz:10070/login \
    --header 'Content-Type: application/json'  \
    -d @passwords.json | /usr/bin/jq --raw-output '.access_token'
 
@@ -68,7 +68,7 @@ EOF
 
 hostname=$(cat /etc/hostname)
 docker="type -p docker"
-active= eval ${docker} ps --format '{{ .Names }} {{.Status}}' | paste -s -d, -
+active= $(/snap/bin/docker ps --format '{{ .Names }} {{.Status}}' | paste -s -d, -)
 uptime=$(uptime -p)
 date=$(date)
 
@@ -77,7 +77,7 @@ date=$(date)
   --header "Authorization: Bearer $ACCESS" \
   --request POST \
   --data "$(generate_post_data)" \
-  http://localhost:5000/devices
+  http://api.fornjot.xyz:10070/devices
 
 
 
