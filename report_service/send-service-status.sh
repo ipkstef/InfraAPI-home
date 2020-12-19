@@ -58,7 +58,7 @@ generate_post_data()
 		"hostname":"$hostname",
 		"Containers-active": "$active",
 		"uptime": "$uptime",
-    "date": "$date"
+    		"date": "$date"
 }
 EOF
 }
@@ -67,8 +67,7 @@ EOF
  # active variable is broken need ot fix docker absolute path
 
 hostname=$(cat /etc/hostname)
-docker="type -p docker"
-active= $(/snap/bin/docker ps --format '{{ .Names }} {{.Status}}' | paste -s -d, -)
+active=$( docker ps --format '{{ .Names }} {{.Status}}' | paste -s -d, - )
 uptime=$(uptime -p)
 date=$(date)
 
