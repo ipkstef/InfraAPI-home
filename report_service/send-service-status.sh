@@ -1,5 +1,7 @@
 #! /bin/bash
 
+export TZ='America/New_York'
+
 # seperate different OS into variables 
 declare -A osInfo;
 osInfo[/etc/debian_version]="apt-get install -y"
