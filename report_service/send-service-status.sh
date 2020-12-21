@@ -69,7 +69,7 @@ EOF
  # active variable is broken need ot fix docker absolute path
 
 hostname=$(cat /etc/hostname)
-active=`echo "The Plex Service is" $(systemctl is-active plexmediaserver.service)`
+active=$( docker ps --format '{{ .Names }} {{.Status}}' | paste -s -d, - )
 uptime=$(uptime -p)
 date=$(date)
 
