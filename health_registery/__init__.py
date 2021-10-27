@@ -70,7 +70,7 @@ def login():
     if not password:
         return jsonify({"msg": "Missing password parameter"}), 400
 
-    if username != 'stef' or password != 'yezolove101':
+    if username != '{username}' or password != '{password}':
         return jsonify({"msg": "Bad username or password"}), 401
  
 
