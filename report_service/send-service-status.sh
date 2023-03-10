@@ -78,7 +78,7 @@ date=$(date)
   --header "Authorization: Bearer $ACCESS" \
   --request POST \
   --data "$(generate_post_data)" \
-  http://api.fornjot.xyz:10070/devices
+  http://YOURWEBSITEHERE.COM
 
 
 
